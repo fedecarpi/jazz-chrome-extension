@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Getting Started Extension's Popup</title>
+  <style>
+    body {
+      font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+      font-size: 100%;
+    }
+
+    section {
+      font-size: 12px;
+    }
+
+    #footer > button {
+      -webkit-padding-start: 9px;
+      -webkit-padding-end: 9px;
+    }
+
+    #footer > #submit-query {
+      -webkit-padding-start: 17px;
+      -webkit-padding-end: 17px;
+    }
+
+    #submit-query:enabled {
+      background-color: #4f7dd6;
+      background-image: none;
+      border-color: #2a4aac;
+      box-shadow: none;
+      color: #fbfafb;
+      text-shadow: none;
+    }
+  </style>
+
+  <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+  <script src="popup.js"></script>
+  <link rel="stylesheet" href="css/chrome_shared.css">
+  <link rel="stylesheet" href="css/widgets.css">
+  <link rel="stylesheet" href="css/uber_shared.css">
+  <style type="text/css"></style>
+</head>
+
+<body>
+  <label for="work-item">Search Work items</label>
+  <input type="text" id="work-item" style="margin-top: 2px; min-height: 1em;" autofocus>
+  <section id="footer" style="margin-top: 2px;">
+    <button id="submit-query">Go</button>
+  </section </body>
+
+</html>

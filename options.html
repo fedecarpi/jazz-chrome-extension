@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Jazz - Chrome Extension Settings</title>
+  <script src="options.js"></script>
+  <link rel="stylesheet" href="css/chrome_shared.css">
+  <link rel="stylesheet" href="css/widgets.css">
+  <link rel="stylesheet" href="css/uber_shared.css">
+  <style>
+    body.uber-frame {
+      -webkit-margin-start: 18px;
+      -webkit-margin-end: 30px;
+    }
+
+    body.uber-frame section {
+      max-width: 650px;
+    }
+
+    body.uber-frame section:last-of-type {
+      margin-top: 28px;
+    }
+
+    body.uber-frame header {
+      -webkit-padding-start: 18px;
+      left: 0;
+      right: 0;
+    }
+
+    body.uber-frame header > h1 {
+      padding-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 16px;
+    }
+
+    .script-header {
+      margin-top: 12px;
+    }
+
+    h3 {
+      margin-bottom: 11px;
+      font-size: 14px;
+    }
+
+    section {
+      font-size: 12px;
+    }
+
+    #footer > button {
+      -webkit-padding-start: 9px;
+      -webkit-padding-end: 9px;
+    }
+
+    #footer > #apply-settings {
+      -webkit-padding-start: 17px;
+      -webkit-padding-end: 17px;
+    }
+
+    #apply-settings:enabled {
+      background-color: #4f7dd6;
+      background-image: none;
+      border-color: #2a4aac;
+      box-shadow: none;
+      color: #fbfafb;
+      text-shadow: none;
+    }
+  </style>
+</head>
+
+<body class="uber-frame">
+  <div class="page">
+    <header style="-webkit-transform: translateX(0px);">
+      <h1>Jazz - Chrome Extension Settings</h1>
+    </header>
+    <section>
+      <h3 class="script-header">Server URL</h3>
+      <input type="text" id="jazz-url" size="70">
+      <ul>
+        <li>
+          <em>
+            This URL will be used as prefix of the workitem, the format should be similar to this -> https://{servername}:8050/ccm/web/projects/{ProjectName}#action=com.ibm.team.workitem.viewWorkItem&id=
+          </em>
+        </li>
+        <br>
+        <li>
+          <em>
+            For a very quick search you can use the shortcut <b>CTRL+SHIFT+S</b>, paste the Work Item number and hit Enter key!
+          </em>
+        </li>
+      </ul>
+    </section>
+    <section id="footer">
+      <button id="apply-settings">
+        Apply settings
+      </button>
+    </section>
+  </div>
+</body>
+
+</html>
