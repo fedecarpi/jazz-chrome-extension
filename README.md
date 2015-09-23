@@ -1,8 +1,8 @@
-# jazz-chrome #
+# jazz-chrome-extension #
 
-This is a repository for the project jazz-chrome-extesion, which is basically a chrome extension that let you do quick searches to a previously configured Jazz server.
+This is a repository for the project jazz-chrome-extension, which is basically a basic extension for chrome that let you do quick Work Items searches to a previously configured Jazz server.
 
-## jazz-chrome ##
+## Installation ##
 
 For installing this extension into chrome read [this](https://support.google.com/chrome_webstore/answer/2664769?hl=en-GB&rd=2) tutorial.
 
