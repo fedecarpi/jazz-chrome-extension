@@ -7,3 +7,5 @@ This is a repository for the project jazz-chrome-extension, which is basically a
 For installing this extension into chrome read [this](https://support.google.com/chrome_webstore/answer/2664769?hl=en-GB&rd=2) tutorial.
 
 Short story, download the last release (.crx) and drag it into the chrome's extension window.
+
+If you have some issue with the installation, please [enable the chrome's developer mode](https://developer.chrome.com/extensions/faq#faq-dev-01).

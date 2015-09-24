@@ -9,6 +9,43 @@
  */
 var jazzChromeExtension = {};
 
+var RE_WEBURL = new RegExp(
+  "^" +
+  // protocol identifier
+  "(?:(?:https?|ftp)://)" +
+  // user:pass authentication
+  "(?:\\S+(?::\\S*)?@)?" +
+  "(?:" +
+  // IP address exclusion
+  // private & local networks
+  "(?!(?:10|127)(?:\\.\\d{1,3}){3})" +
+  "(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})" +
+  "(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})" +
+  // IP address dotted notation octets
+  // excludes loopback network 0.0.0.0
+  // excludes reserved space >= 224.0.0.0
+  // excludes network & broacast addresses
+  // (first & last IP address of each class)
+  "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])" +
+  "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}" +
+  "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" +
+  "|" +
+  // host name
+  "(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)" +
+  // domain name
+  "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*" +
+  // TLD identifier
+  "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))" +
+  // TLD may end with dot
+  "\\.?" +
+  ")" +
+  // port number
+  "(?::\\d{2,5})?" +
+  // resource path
+  "(?:[/?#]\\S*)?" +
+  "$", "i"
+);
+
 function $(id) {
   return document.getElementById(id);
 }
@@ -24,27 +61,21 @@ jazzChromeExtension.jazzServerURL = null;
 jazzChromeExtension.initApplyButton = function() {
   $('apply-settings').onclick = function(event) {
     jazzChromeExtension.jazzServerURL = $('jazz-url').value;
-    //if (jazzChromeExtension.validateURL(jazzChromeExtension.jazzServerURL)) {
-      localStorage.jazzServerURL = $('jazz-url').value;
-      alert("The URL was saved!");
-    //} else {
-    //  alert("Please enter a valid URL");
-    //}
+    if ($('jazz-url').value) {
+      if (jazzChromeExtension.validateURL($('jazz-url').value)) {
+        localStorage.jazzServerURL = $('jazz-url').value;
+        alert("The URL was saved");
+      } else {
+        alert("Invalid URL");
+      }
+    } else {
+      alert("The URL cannot be empty");
+    }
   };
 };
 
 jazzChromeExtension.validateURL = function(str) {
-  var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-    '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-  if (!pattern.test(str)) {
-    return false;
-  } else {
-    return true;
-  }
+  return RE_WEBURL.test(str);
 };
 
 jazzChromeExtension.loadParams = function() {

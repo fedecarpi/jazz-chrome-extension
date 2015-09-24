@@ -2,6 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+var ACTION = "action";
+var ACTION_WORK_ITEM_SEARCH = "com.ibm.team.workitem.search";
+var SEARCH_QUERY_PARAM = "q";
+var ACTION_VIEW_WORK_ITEM = "com.ibm.team.workitem.viewWorkItem";
+var WORK_ITEM_ID_PARAM = "id";
+
 function $(id) {
   return document.getElementById(id);
 }
@@ -45,16 +51,24 @@ function getCurrentTabUrl(callback) {
 document.addEventListener('DOMContentLoaded', function() {
   $('submit-query').onclick = function(event) {
     if (localStorage.jazzServerURL) {
-      var url = localStorage.jazzServerURL + $("work-item").value;
+      var q = $("query").value;
+      var url = null;
+      //Free text search
+      if (isNaN(q)) {
+        url = localStorage.jazzServerURL + "#" + ACTION + "=" + ACTION_WORK_ITEM_SEARCH + "&" + SEARCH_QUERY_PARAM + "=" + q;
+      } else {
+        //Work item ID search
+        url = localStorage.jazzServerURL + "#" + ACTION + "=" + ACTION_VIEW_WORK_ITEM + "&" + WORK_ITEM_ID_PARAM + "=" + q;
+      }
       chrome.tabs.create({
         'url': url
       });
     } else {
-      alert(localStorage.jazzServerURL);
+      alert("Please go to options and set the jazz server URL");
     }
   };
 
-  $('work-item').onkeydown = function(event) {
+  $('query').onkeydown = function(event) {
     if (event.keyCode == 13) {
       $('submit-query').click();
     }
